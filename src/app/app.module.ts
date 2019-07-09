@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { RuneScapeComponent } from './components/rune-scape/rune-scape.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RuneScapeComponent
   ],
   imports: [
     BrowserModule
