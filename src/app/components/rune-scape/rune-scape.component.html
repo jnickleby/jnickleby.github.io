@@ -4,8 +4,12 @@
   <div *ngFor="let runeSet of runeSets">
     <button class="rune-tablet" (click)="changeRune(runeSet.parent)">{{runeSet.parent.expression}}</button>
 
-    <div style="display: flex; flex-direction: column">
-      <button *ngFor="let rune of runeSet.children" class="rune-tablet" (click)="changeRune(rune)">
+    <div style="display: flex; flex-direction: column; align-items: center">
+      <button *ngFor="let rune of runeSet.children"
+              (mouseenter)="hoveringOver = rune.name"
+              (mouseleave)="hoveringOver = 0"
+              [@enteredExited]="hoveringOver === rune.name ? 'entered' : 'exited'"
+              class="rune-tablet" (click)="changeRune(rune)">
         {{rune.expression}}
       </button>
     </div>
