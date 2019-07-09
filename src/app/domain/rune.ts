@@ -71,24 +71,76 @@ export const PRIME_RUNES = [BAR, BUC, CEN, COL, DOT, KET, LUS, MIC, SIG, TIS, WU
 
 // region SECONDARY RUNES
 
-// region DOT
+// region BAR
 
-export const DOTKET = new Rune('.^', 'dotket',
-  'Loads from the Arvo namespace with a fake Nock instruction', Rune.docLink('dot', 'dotket'), DOT);
+export const BARCAB = new Rune('|_', 'barcab',
+  'Produces a door (a core with a sample)', Rune.docLink('bar', 'barcab'), BAR);
 
-export const DOTLUS = new Rune('.+', 'dotlus',
-  'Increments an atom by 1', Rune.docLink('dot', 'dotlus'));
+export const BARCEN = new Rune('|%', 'barcen',
+  'Produces a core ([battery, payload])', Rune.docLink('bar', 'barcen'), BAR);
 
-// endregion DOT
+export const BARCOL = new Rune('|:', 'barcol',
+  'Produces a gate with a custom sample', Rune.docLink('bar', 'barcol'), BAR);
+
+export const BARDOT = new Rune('|.', 'bardot',
+  'Produces a trap (core with one arm = $)', Rune.docLink('bar', 'bardot'), BAR);
+
+export const BARHEP = new Rune('|-', 'barhep',
+  'Produces a trap (core with one arm = $) and evaluate it', Rune.docLink('bar', 'barhep'), BAR);
+
+export const BARKET = new Rune('|^', 'barket',
+  'Produce a core whose battery includes a $ arm and computer the latter', Rune.docLink('bar', 'barket'), BAR);
+
+export const BARSIG = new Rune('|~', 'barsig',
+  'Produce an iron gate', Rune.docLink('bar', 'barsig'), BAR);
+
+export const BARTAR = new Rune('|*', 'bartar',
+  'Produces a wet gate (one-armed core with sample)', Rune.docLink('bar', 'bartar'), BAR);
+
+export const BARTIS = new Rune('|=', 'bartis',
+  'Produce a gate (one-armed core with a sample', Rune.docLink('bar', 'bartis'), BAR);
+
+export const BARVAT = new Rune('|@', 'barvat',
+  'Produces a wet core ([batter payload])', Rune.docLink('bar', 'barvat'), BAR);
+
+export const BARWUT = new Rune('|?', 'barwut',
+  'Produces a lead trap', Rune.docLink('bar', 'barwut'), BAR);
+
+// endregion BAR
 
 export const BAR_SET = {
   parent: BAR,
-  children: []
+  children: [BARCAB, BARCEN, BARCOL, BARDOT, BARHEP, BARKET, BARSIG, BARTAR, BARTIS, BARVAT, BARWUT]
 };
+
+// region BUC
+
+export const BUCCAB = new Rune('$_', 'buccab',
+  'Normalizes the structure to an example', Rune.docLink('buc', 'buccab'), BUC);
+
+export const BUCCEN = new Rune('$%', 'buccen',
+  'Recognizes a union tagged by the head atom', Rune.docLink('buc', 'buccen'), BUC);
+
+export const BUCCOL = new Rune('$:', 'buccol',
+  'Forms a cell type', Rune.docLink('buc', 'buccol'), BUC);
+
+export const BUCHEP = new Rune('$-', 'buchep',
+  'Normalizes the structure to an example gate', Rune.docLink('buc', 'buchep'), BUC);
+
+export const BUCKET = new Rune('$^', 'bucket',
+  'Normalizes the structure to a union tagged by head depth (cell)', Rune.docLink('buc', 'bucket'), BUC);
+
+export const BUCSIG = new Rune('$~', 'bucsig',
+  'Define a custom type default value', Rune.docLink('buc', 'bucsig'), BUC);
+
+export const BUCVAT = new Rune('$@', 'bucvat',
+  'Normalizes the structure to a union tagged by head depth (atom)', Rune.docLink('buc', 'bucvat'), BUC);
+
+// endregion BUC
 
 export const BUC_SET = {
   parent: BUC,
-  children: []
+  children: [BUCCAB, BUCCEN, BUCCOL, BUCHEP, BUCKET, BUCSIG, BUCVAT]
 };
 
 export const CEN_SET = {
@@ -101,11 +153,29 @@ export const COL_SET = {
   children: []
 };
 
+// region DOT
+
+export const DOTKET = new Rune('.^', 'dotket',
+  'Loads from the Arvo namespace with a fake Nock instruction with Nock 12', Rune.docLink('dot', 'dotket'), DOT);
+
+export const DOTLUS = new Rune('.+', 'dotlus',
+  'Increments an atom by 1 with Nock 4', Rune.docLink('dot', 'dotlus'));
+
+export const DOTTAR = new Rune('.*', 'dottar',
+  'Evaluates with Nock 2', Rune.docLink('dot', 'dottar'));
+
+export const DOTTIS = new Rune('.=', 'dottis',
+  'Tests for equality with Nock 5', Rune.docLink('dot', 'dottis'));
+
+export const DOTWUT = new Rune('.?', 'dotwut',
+  'Tests for cell or atom with Nock 3', Rune.docLink('dot', 'dotwut'));
+
+// endregion DOT
+
 export const DOT_SET = {
   parent: DOT,
-  children: [DOTKET, DOTLUS]
+  children: [DOTKET, DOTLUS, DOTTAR, DOTTIS, DOTWUT]
 };
-
 
 export const KET_SET = {
   parent: KET,
