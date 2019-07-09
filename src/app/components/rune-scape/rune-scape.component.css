@@ -1,16 +1,93 @@
 
-.rune-tablet {
-  width: 70px;
-  height: 70px;
-  font-size: 24pt;
+.glyph-tablet, .rune-tablet {
   font-family: "Mountains of Christmas", cursive;
-  border-radius: 30px;
+  border-radius: 2px; /*30px*/
   font-weight: bold;
   margin: 0 30px 30px 0;
 }
 
-.rune-tablets {
+.glyph-tablet {
+  width: 33px;
+  height: 33px;
+  font-size: 14pt;
+}
+
+.rune-tablet {
+  width: 70px;
+  height: 70px;
+  font-size: 24pt;
+  border-radius: 2px;
+}
+
+.box-shadow {
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.box-shadow-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.box-shadow-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.box-shadow-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.box-shadow-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.box-shadow-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+/*.rune-tablet:hover {*/
+/*  color: whitesmoke !important;*/
+/*  box-shadow: 0 0 20px 1px gray;*/
+/*}*/
+
+/*.rune-space:nth-child(-n+3) .rune-tablet {*/
+/*  border-color: #b89b47;*/
+/*  color: #b89b47;*/
+/*}*/
+
+/*.rune-space:nth-child(-n+3) .rune-tablet:hover {*/
+/*  background-color: #b89b47;*/
+/*}*/
+
+/*.rune-space:nth-child(n+4):nth-child(-n+6) .rune-tablet {*/
+/*  border-color: #47b862;*/
+/*  color: #47b862;*/
+/*}*/
+
+/*.rune-space:nth-child(n+4):nth-child(-n+6) .rune-tablet:hover {*/
+/*  background-color: #47b862;*/
+/*}*/
+
+/*.rune-space:nth-child(n+7):nth-child(-n+9) .rune-tablet {*/
+/*  border-color: #4764b8;*/
+/*  color: #4764b8;*/
+/*}*/
+
+/*.rune-space:nth-child(n+7):nth-child(-n+9) .rune-tablet:hover {*/
+/*  background-color: #4764b8;*/
+/*}*/
+
+/*.rune-space:nth-child(n+10) .rune-tablet {*/
+/*  border-color: #b8479d;*/
+/*  color: #b8479d;*/
+/*}*/
+
+/*.rune-space:nth-child(n+10) .rune-tablet:hover {*/
+/*  background-color: #b8479d;*/
+/*}*/
+
+#rune-tablets {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding-top: 20px;
+
 }

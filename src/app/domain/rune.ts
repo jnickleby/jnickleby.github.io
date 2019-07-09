@@ -188,17 +188,17 @@ export const LUS_SET = {
 };
 
 export const MIC_SET = {
-  parent: KET,
+  parent: MIC,
   children: []
 };
 
 export const SIG_SET = {
-  parent: KET,
+  parent: SIG,
   children: []
 };
 
 export const TIS_SET = {
-  parent: KET,
+  parent: TIS,
   children: []
 };
 

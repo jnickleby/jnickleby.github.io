@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
+body {
+  background: #e2e1e0;
+}
+
 .literata {
   font-family: 'Literata', serif;
   font-size: 20pt;
@@ -44,3 +48,9 @@
   font-family: 'Nanum Pen Script', cursive;
   font-size: 28pt;
 }
+
+
+.purple-bg { background-color: #4764b8; }
+.pink-bg { background-color: #b8479d; }
+.yellow-bg { background-color: #b89b47; }
+.green-bg { background-color: #47b862; }
