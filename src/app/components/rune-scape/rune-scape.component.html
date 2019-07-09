@@ -1,4 +1,22 @@
 
-<div>
-  <button class="rune-tablets" *ngFor="let rune of primeRunes">{{rune.expression}}</button>
+<h1>Prime Runes</h1>
+<div class="rune-tablets">
+  <div *ngFor="let runeSet of runeSets">
+    <button class="rune-tablet" (click)="changeRune(runeSet.parent)">{{runeSet.parent.expression}}</button>
+
+    <div style="display: flex; flex-direction: column">
+      <button *ngFor="let rune of runeSet.children" class="rune-tablet" (click)="changeRune(rune)">
+        {{rune.expression}}
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedRune">
+  <div>{{selectedRune.expression}}</div>
+  <div>{{selectedRune.name}}</div>
+  <div>{{selectedRune.description}}</div>
+  <div>{{selectedRune?.parentGroup.name}}</div>
+  <div>{{selectedRune?.atomicGroup}}</div>
+  <div>{{selectedRune?.atomic}}</div>
 </div>

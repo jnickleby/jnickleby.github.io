@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'mimir';
 
-  chosenFont = 'nanum-pen-script';
+  chosenFont = 'quicksand';
 
   fonts = [
     ['literata', 'Literata'],
