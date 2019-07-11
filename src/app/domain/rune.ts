@@ -4,18 +4,25 @@ export class Rune {
     public expression: string,
     public name: string,
     public description: string,
-    public docs?: string,
     public parentGroup?: Rune,
     public atomicGroup?: string,
     public atomic: boolean = false
-  ) {}
+  ) {
+    if (this.name !== 'not' && !atomic) {
+      this.docLink += `${this.parentGroup.name}/${this.name}`;
+    }
+  }
 
-  static parentUrl = 'https://urbit.org/docs/reference/hoon-expressions/rune/';
+  public docLink = 'https://urbit.org/docs/reference/hoon-expressions/rune/';
 
   static createSpace(): Rune { return new Rune('', 'not', 'Creates existence'); }
 
-  static docLink(...additionalUrls: string[]): string {
-    return `${this.parentUrl}${additionalUrls.join('/')}/`;
+  combineOptions(expression: string, name: string, description: string): Rune {
+    return new Rune(this.expression + expression, this.name + name, description, this);
+  }
+
+  combineRune(rune: Rune, description: string): Rune {
+    return new Rune(this.expression + rune.expression, this.name + rune.name, description, this);
   }
 }
 
@@ -24,46 +31,46 @@ export class Rune {
 export const NOT = Rune.createSpace();
 
 export const BAR = new Rune(
-  '|', 'bar', 'Produces core(s)', Rune.parentUrl, NOT, 'Cores', true);
+  '|', 'bar', 'Produces core(s)', NOT, 'Cores', true);
 
 export const BUC = new Rune(
-  '$', 'buc', 'Defines custom type(s)', Rune.parentUrl, NOT, 'Structures', true);
+  '$', 'buc', 'Defines custom type(s)', NOT, 'Structures', true);
 
 export const CEN = new Rune(
-  '%', 'cen', 'Makes function calls in Hoon', Rune.parentUrl, NOT, 'Calls', true);
+  '%', 'cen', 'Makes function calls in Hoon', NOT, 'Calls', true);
 
 export const COL = new Rune(
-  ':', 'col', 'Produces cell(s)', Rune.parentUrl, NOT, 'Cells', true);
+  ':', 'col', 'Produces cell(s)', NOT, 'Cells', true);
 
 export const DOT = new Rune(
-  '.', 'dot', 'Carries out Nock operations in Hoon', Rune.parentUrl, NOT, 'Nock', true);
+  '.', 'dot', 'Carries out Nock operations in Hoon', NOT, 'Nock', true);
 
 export const KET = new Rune(
-  '^', 'ket', 'Adjusts types without violating type constraints', Rune.parentUrl, NOT, 'Cast', true);
+  '^', 'ket', 'Adjusts types without violating type constraints', NOT, 'Cast', true);
 
 export const LUS = new Rune(
-  '+', 'lus', 'Defines arms in a core', Rune.parentUrl, NOT, 'Arms', true);
+  '+', 'lus', 'Defines arms in a core', NOT, 'Arms', true);
 
 export const MIC = new Rune(
-  ';', 'mic', 'Handles useful macros', Rune.parentUrl, NOT, 'Make', true);
+  ';', 'mic', 'Handles useful macros', NOT, 'Make', true);
 
 export const SIG = new Rune(
-  '~', 'sig', 'Passes non-semantic info to the interpreter', Rune.parentUrl, NOT, 'Hints', true);
+  '~', 'sig', 'Passes non-semantic info to the interpreter', NOT, 'Hints', true);
 
 export const TIS = new Rune(
-  '=', 'tis', 'Modifies the subject', Rune.parentUrl, NOT, 'Subject Modification', true);
+  '=', 'tis', 'Modifies the subject', NOT, 'Subject Modification', true);
 
 export const WUT = new Rune(
-  '?', 'wut', 'Processes branching on conditionals', Rune.parentUrl, NOT, 'Conditionals', true);
+  '?', 'wut', 'Processes branching on conditionals',  NOT, 'Conditionals', true);
 
 export const ZAP = new Rune(
-  '!', 'zap', 'Handles wildcard expressions', Rune.parentUrl, NOT, 'Wild', true);
+  '!', 'zap', 'Handles wildcard expressions', NOT, 'Wild', true);
 
 export const TEM = new Rune(
-  '--', '', 'Terminates expressions', Rune.parentUrl, NOT, 'Terminators', true);
+  '--', '', 'Terminates expressions', NOT, 'Terminators', true);
 
 export const TER = new Rune(
-  '==', '', 'Terminates expression', Rune.parentUrl, NOT, 'Terminates', true);
+  '==', '', 'Terminates expression', NOT, 'Terminators', true);
 
 export const PRIME_RUNES = [BAR, BUC, CEN, COL, DOT, KET, LUS, MIC, SIG, TIS, WUT, ZAP, TEM, TER];
 
@@ -71,40 +78,47 @@ export const PRIME_RUNES = [BAR, BUC, CEN, COL, DOT, KET, LUS, MIC, SIG, TIS, WU
 
 // region SECONDARY RUNES
 
+export const CAB = new Rune(
+  '_', 'cab', 'Used to make glyphs', NOT, 'Glyph Combinator', true);
+
+export const HEP = new Rune(
+  '-', 'hep', 'Used to make glyphs', NOT, 'Glyph Combinator', true);
+
+export const TAR = new Rune(
+  '*', 'tar', 'Used to make glyphs', NOT, 'Glyph Combinator', true);
+
+export const VAT = new Rune(
+  '@', 'vat', 'Used to make glyphs', NOT, 'Glyph Combinator', true);
+
+// endregion SECONDARY RUNES
+
+
+
+// region GLYPHS
+
 // region BAR
 
-export const BARCAB = new Rune('|_', 'barcab',
-  'Produces a door (a core with a sample)', Rune.docLink('bar', 'barcab'), BAR);
+export const BARCAB = BAR.combineRune(CAB, 'Produces a door (a core with a sample)');
 
-export const BARCEN = new Rune('|%', 'barcen',
-  'Produces a core ([battery, payload])', Rune.docLink('bar', 'barcen'), BAR);
+export const BARCEN = BAR.combineRune(CEN, 'Produces a core ([battery, payload])');
 
-export const BARCOL = new Rune('|:', 'barcol',
-  'Produces a gate with a custom sample', Rune.docLink('bar', 'barcol'), BAR);
+export const BARCOL = BAR.combineRune(COL, 'Produces a gate with a custom sample');
 
-export const BARDOT = new Rune('|.', 'bardot',
-  'Produces a trap (core with one arm = $)', Rune.docLink('bar', 'bardot'), BAR);
+export const BARDOT = BAR.combineRune(DOT, 'Produces a trap (core with one arm = $)');
 
-export const BARHEP = new Rune('|-', 'barhep',
-  'Produces a trap (core with one arm = $) and evaluate it', Rune.docLink('bar', 'barhep'), BAR);
+export const BARHEP = BAR.combineRune(HEP, 'Produces a trap (core with one arm = $) and evaluate it');
 
-export const BARKET = new Rune('|^', 'barket',
-  'Produce a core whose battery includes a $ arm and computer the latter', Rune.docLink('bar', 'barket'), BAR);
+export const BARKET = BAR.combineRune(KET, 'Produce a core whose battery includes a $ arm and computer the latter');
 
-export const BARSIG = new Rune('|~', 'barsig',
-  'Produce an iron gate', Rune.docLink('bar', 'barsig'), BAR);
+export const BARSIG = BAR.combineRune(SIG, 'Produce an iron gate');
 
-export const BARTAR = new Rune('|*', 'bartar',
-  'Produces a wet gate (one-armed core with sample)', Rune.docLink('bar', 'bartar'), BAR);
+export const BARTAR = BAR.combineRune(TAR, 'Produces a wet gate (one-armed core with sample)');
 
-export const BARTIS = new Rune('|=', 'bartis',
-  'Produce a gate (one-armed core with a sample', Rune.docLink('bar', 'bartis'), BAR);
+export const BARTIS = BAR.combineRune(TIS, 'Produce a gate (one-armed core with a sample');
 
-export const BARVAT = new Rune('|@', 'barvat',
-  'Produces a wet core ([batter payload])', Rune.docLink('bar', 'barvat'), BAR);
+export const BARVAT = BAR.combineRune(VAT, 'Produces a wet core ([battery payload])');
 
-export const BARWUT = new Rune('|?', 'barwut',
-  'Produces a lead trap', Rune.docLink('bar', 'barwut'), BAR);
+export const BARWUT = BAR.combineRune(WUT, 'Produces a lead trap');
 
 // endregion BAR
 
@@ -115,26 +129,19 @@ export const BAR_SET = {
 
 // region BUC
 
-export const BUCCAB = new Rune('$_', 'buccab',
-  'Normalizes the structure to an example', Rune.docLink('buc', 'buccab'), BUC);
+export const BUCCAB = BUC.combineRune(CAB, 'Normalizes the structure to an example');
 
-export const BUCCEN = new Rune('$%', 'buccen',
-  'Recognizes a union tagged by the head atom', Rune.docLink('buc', 'buccen'), BUC);
+export const BUCCEN = BUC.combineRune(CEN, 'Recognizes a union tagged by the head atom');
 
-export const BUCCOL = new Rune('$:', 'buccol',
-  'Forms a cell type', Rune.docLink('buc', 'buccol'), BUC);
+export const BUCCOL = BUC.combineRune(COL, 'Forms a cell type');
 
-export const BUCHEP = new Rune('$-', 'buchep',
-  'Normalizes the structure to an example gate', Rune.docLink('buc', 'buchep'), BUC);
+export const BUCHEP = BUC.combineRune(HEP, 'Normalizes the structure to an example gate');
 
-export const BUCKET = new Rune('$^', 'bucket',
-  'Normalizes the structure to a union tagged by head depth (cell)', Rune.docLink('buc', 'bucket'), BUC);
+export const BUCKET = BUC.combineRune(KET, 'Normalizes the structure to a union tagged by head depth (cell)');
 
-export const BUCSIG = new Rune('$~', 'bucsig',
-  'Define a custom type default value', Rune.docLink('buc', 'bucsig'), BUC);
+export const BUCSIG = BUC.combineRune(SIG, 'Define a custom type default value');
 
-export const BUCVAT = new Rune('$@', 'bucvat',
-  'Normalizes the structure to a union tagged by head depth (atom)', Rune.docLink('buc', 'bucvat'), BUC);
+export const BUCVAT = BUC.combineRune(VAT, 'Normalizes the structure to a union tagged by head depth (atom)');
 
 // endregion BUC
 
@@ -143,32 +150,65 @@ export const BUC_SET = {
   children: [BUCCAB, BUCCEN, BUCCOL, BUCHEP, BUCKET, BUCSIG, BUCVAT]
 };
 
+// region CEN
+
+export const CENCAB = CEN.combineRune(CAB, 'Resolves a wing with changes; preserves type');
+
+export const CENCOL = CEN.combineRune(COL, 'Calls a gate with many arguments');
+
+export const CENDOT = CEN.combineRune(DOT, 'Calls a gate (function) inverted');
+
+export const CENHEP = CEN.combineRune(HEP, 'Calls a gate (function)');
+
+export const CENKET = CEN.combineRune(KET, 'Calls gate with triple sample');
+
+export const CENLUS = CEN.combineRune(LUS, 'Call gate with a cell sample');
+
+export const CENSIG = CEN.combineRune(SIG, 'Evaluates an arm in a door');
+
+export const CENTAR = CEN.combineRune(TAR, 'Evaluates an expression and then resolves a wing with changes');
+
+export const CENTIS = CEN.combineRune(TIS, 'Resolves a wing with changes');
+
+// endregion CEN
+
 export const CEN_SET = {
   parent: CEN,
-  children: []
+  children: [CENCAB, CENCOL, CENDOT, CENHEP, CENKET, CENLUS, CENSIG, CENTAR, CENTIS]
 };
+
+// region COL
+
+export const COLCAB = COL.combineRune(CAB, 'Resolves a wing with changes; preserves type');
+
+export const COLHEP = COL.combineRune(HEP, 'Constructs a tuple cell');
+
+export const COLKET = COL.combineRune(KET, 'Constructs a quadruple cell');
+
+export const COLLUS = COL.combineRune(LUS, 'Constructs a triple cell');
+
+export const COLSIG = COL.combineRune(SIG, 'Constructs a null-terminated list');
+
+export const COLTAR = COL.combineRune(TAR, 'Constructs an n-tuple cell');
+
+// endregion COL
 
 export const COL_SET = {
   parent: COL,
-  children: []
+  children: [COLCAB, COLHEP, COLKET, COLLUS, COLSIG, COLTAR]
 };
 
 // region DOT
 
-export const DOTKET = new Rune('.^', 'dotket',
-  'Loads from the Arvo namespace with a fake Nock instruction with Nock 12', Rune.docLink('dot', 'dotket'), DOT);
+export const DOTKET = DOT.combineRune(KET, 'Loads from the Arvo namespace with a fake Nock instruction with Nock 12');
 
-export const DOTLUS = new Rune('.+', 'dotlus',
-  'Increments an atom by 1 with Nock 4', Rune.docLink('dot', 'dotlus'));
+export const DOTLUS = DOT.combineRune(LUS, 'Increments an atom by 1 with Nock 4');
 
-export const DOTTAR = new Rune('.*', 'dottar',
-  'Evaluates with Nock 2', Rune.docLink('dot', 'dottar'));
+export const DOTTAR = DOT.combineRune(TAR, 'Evaluates with Nock 2');
 
-export const DOTTIS = new Rune('.=', 'dottis',
-  'Tests for equality with Nock 5', Rune.docLink('dot', 'dottis'));
+export const DOTTIS = DOT.combineRune(TIS, 'Tests for equality with Nock 5');
 
-export const DOTWUT = new Rune('.?', 'dotwut',
-  'Tests for cell or atom with Nock 3', Rune.docLink('dot', 'dotwut'));
+export const DOTWUT = DOT.combineRune(WUT, 'Tests for cell or atom with Nock 3');
 
 // endregion DOT
 
@@ -212,7 +252,7 @@ export const ZAP_SET = {
   children: []
 };
 
-// endregion SECONDARY RUNES
+// endregion GLYPHS
 
 export const RUNE_SETS = [
   BAR_SET, BUC_SET, CEN_SET, COL_SET, DOT_SET, KET_SET, LUS_SET, MIC_SET, SIG_SET, TIS_SET, WUT_SET, ZAP_SET
