@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  background: #e2e1e0;
+}
+
+.literata {
+  font-family: 'Literata', serif;
+  font-size: 20pt;
+}
+
+.mountains-of-christmas {
+  font-family: 'Mountains of Christmas', cursive;
+  font-size: 20pt;
+}
+
+.quicksand {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 20pt;
+}
+
+.teko {
+  font-family: 'Teko', sans-serif;
+  font-size: 24pt;
+}
+
+.zilla-slab {
+  font-family: 'Zilla Slab', serif;
+  font-size: 20pt;
+}
+
+.concert-one {
+  font-family: 'Concert One', cursive;
+  font-size: 20pt;
+}
+
+.libre-barcode {
+  font-family: 'Libre Barcode 128 Text', cursive;
+  font-size: 26pt;
+}
+
+.gochi-hand {
+  font-family: 'Gochi Hand', cursive;
+  font-size: 24pt;
+}
+
+.nanum-pen-script {
+  font-family: 'Nanum Pen Script', cursive;
+  font-size: 28pt;
+}
+
+
+.purple-bg { background-color: #4764b8; }
+.pink-bg { background-color: #b8479d; }
+.yellow-bg { background-color: #b89b47; }
+.green-bg { background-color: #47b862; }

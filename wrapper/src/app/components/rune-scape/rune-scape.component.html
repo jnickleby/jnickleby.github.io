@@ -1,0 +1,33 @@
+
+<div class="box-shadow box-shadow-1" style="background-color: white; padding: 20px; margin-top: 10px">
+  <h1>Runes</h1>
+
+  <div id="rune-tablets" class="box-shadow box-shadow-2">
+    <div *ngFor="let runeSet of runeSets" class="rune-space">
+      <button class="rune-tablet"
+              (mouseenter)="hoveringOver = runeSet.parent.name"
+              (mouseleave)="hoveringOver = 0"
+              [@upDown]="hoveringOver === runeSet.parent.name ? 'up' : 'down'"
+              (click)="changeRune(runeSet.parent)">{{runeSet.parent.expression}}</button>
+
+      <div style="display: flex; flex-direction: column; align-items: center">
+        <button *ngFor="let rune of runeSet.children"
+                (mouseenter)="hoveringOver = rune.name"
+                (mouseleave)="hoveringOver = 0"
+                [@upDown]="hoveringOver === rune.name ? 'up' : 'down'"
+                class="glyph-tablet" (click)="changeRune(rune)">
+          {{rune.expression}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedRune">
+  <div>{{selectedRune.expression}}</div>
+  <div>{{selectedRune.name}}</div>
+  <div>{{selectedRune.description}}</div>
+  <div>{{selectedRune?.parentGroup.name}}</div>
+  <div>{{selectedRune?.atomicGroup}}</div>
+  <div>{{selectedRune?.atomic}}</div>
+</div>

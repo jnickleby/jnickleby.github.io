@@ -1,0 +1,15 @@
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.font-btn {
+  height: 100px
+}
+
+#font-btns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
