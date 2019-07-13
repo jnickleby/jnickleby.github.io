@@ -4,20 +4,10 @@
 
   <div id="rune-tablets" class="box-shadow box-shadow-2">
     <div *ngFor="let runeSet of runeSets" class="rune-space">
-      <button class="rune-tablet"
-              (mouseenter)="hoveringOver = runeSet.parent.name"
-              (mouseleave)="hoveringOver = 0"
-              [@upDown]="hoveringOver === runeSet.parent.name ? 'up' : 'down'"
-              (click)="changeRune(runeSet.parent)">{{runeSet.parent.expression}}</button>
+      <mmr-tablet-button [rune]="runeSet.parent"></mmr-tablet-button>
 
       <div style="display: flex; flex-direction: column; align-items: center">
-        <button *ngFor="let rune of runeSet.children"
-                (mouseenter)="hoveringOver = rune.name"
-                (mouseleave)="hoveringOver = 0"
-                [@upDown]="hoveringOver === rune.name ? 'up' : 'down'"
-                class="glyph-tablet" (click)="changeRune(rune)">
-          {{rune.expression}}
-        </button>
+        <mmr-tablet-button *ngFor="let rune of runeSet.children" [rune]="rune" [isGlyph]="true"></mmr-tablet-button>
       </div>
     </div>
   </div>
