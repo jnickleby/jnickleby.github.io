@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { RuneScapeComponent } from './components/rune-scape/rune-scape.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {TabletButtonComponent} from './components/single/tablet-button.component';
+import { SandboxComponent } from './components/sandbox/sandbox.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RuneScapeComponent,
     TabletButtonComponent,
-    TabletButtonComponent
+    TabletButtonComponent,
+    SandboxComponent
   ],
   imports: [
     BrowserModule,

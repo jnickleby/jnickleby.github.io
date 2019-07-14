@@ -9,6 +9,7 @@ export class RuneService {
 
   hoveredRune$: BehaviorSubject<Rune> = new BehaviorSubject(null);
   selectedRune$: BehaviorSubject<Rune> = new BehaviorSubject(null);
+  focusType = 'unfocus';
 
   constructor() { }
 
@@ -17,6 +18,8 @@ export class RuneService {
   }
 
   public selectRune(rune?: Rune) {
-    this.selectedRune$.next(rune);
+    const runeReplace = this.selectedRune$.getValue() === rune ? null : rune;
+    this.selectedRune$.next(runeReplace);
+    this.focusType = runeReplace ? 'focus' : 'unfocus';
   }
 }
