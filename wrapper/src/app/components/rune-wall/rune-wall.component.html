@@ -1,0 +1,13 @@
+
+<div style="display: flex">
+  <div class="rune-space side-nav">
+    <mmr-tablet-button *ngFor="let runeSet of runeService.runeSets" [rune]="runeSet.parent"></mmr-tablet-button>
+  </div>
+
+  <div>
+    <div>
+      <mmr-tablet-button *ngFor="let rune of (runeService.selectedRuneSet$ | async)?.children"
+                         [rune]="rune" [isGlyph]="true"></mmr-tablet-button>
+    </div>
+  </div>
+</div>

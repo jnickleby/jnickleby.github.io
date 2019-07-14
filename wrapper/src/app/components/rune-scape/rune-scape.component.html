@@ -2,13 +2,17 @@
 <div class="box-shadow box-shadow-1" style="background-color: white; padding: 20px; margin-top: 10px">
   <h1>Runes</h1>
 
-  <div [@focusToggle]="runeService.focusType"  id="rune-tablets" class="box-shadow box-shadow-2">
-    <div [@focusMovement]="runeService.focusType" *ngFor="let runeSet of runeSets" class="rune-space">
+  <div id="rune-tablets" class="box-shadow box-shadow-2">
+    <div *ngFor="let runeSet of runeSets" class="rune-space">
       <mmr-tablet-button [rune]="runeSet.parent"></mmr-tablet-button>
 
       <div style="display: flex; flex-direction: column; align-items: center">
         <mmr-tablet-button *ngFor="let rune of runeSet.children" [rune]="rune" [isGlyph]="true"></mmr-tablet-button>
       </div>
     </div>
+  </div>
+
+  <div class="box-shadow box-shadow-2" style="padding: 30px">
+    <mmr-rune-wall></mmr-rune-wall>
   </div>
 </div>
