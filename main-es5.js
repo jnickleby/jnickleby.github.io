@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"container\" [ngClass]=\"chosenFont\">\n\n  <div id=\"font-btns\">\n    <button class=\"font-btn\" [ngClass]=\"font[0]\" *ngFor=\"let font of fonts\" (click)=\"chosenFont = font[0]\">{{font[1]}}</button>\n  </div>\n\n  <mmr-rune-scape></mmr-rune-scape>\n</div>\n"
+module.exports = "\n<div class=\"container\" [ngClass]=\"chosenFont\">\n\n  <div id=\"font-btns\">\n    <button class=\"font-btn\" [ngClass]=\"font[0]\" *ngFor=\"let font of fonts\" (click)=\"chosenFont = font[0]\">{{font[1]}}</button>\n  </div>\n\n  <mmr-rune-scape></mmr-rune-scape>\n\n<!--  <mmr-sandbox></mmr-sandbox>-->\n</div>\n"
 
 /***/ }),
 
@@ -41,7 +41,29 @@ module.exports = "\n<div class=\"container\" [ngClass]=\"chosenFont\">\n\n  <div
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div class=\"box-shadow box-shadow-1\" style=\"background-color: white; padding: 20px; margin-top: 10px\">\n  <h1>Runes</h1>\n\n  <div id=\"rune-tablets\" class=\"box-shadow box-shadow-2\">\n    <div *ngFor=\"let runeSet of runeSets\" class=\"rune-space\">\n      <button class=\"rune-tablet\"\n              (mouseenter)=\"hoveringOver = runeSet.parent.name\"\n              (mouseleave)=\"hoveringOver = 0\"\n              [@upDown]=\"hoveringOver === runeSet.parent.name ? 'up' : 'down'\"\n              (click)=\"changeRune(runeSet.parent)\">{{runeSet.parent.expression}}</button>\n\n      <div style=\"display: flex; flex-direction: column; align-items: center\">\n        <button *ngFor=\"let rune of runeSet.children\"\n                (mouseenter)=\"hoveringOver = rune.name\"\n                (mouseleave)=\"hoveringOver = 0\"\n                [@upDown]=\"hoveringOver === rune.name ? 'up' : 'down'\"\n                class=\"glyph-tablet\" (click)=\"changeRune(rune)\">\n          {{rune.expression}}\n        </button>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div *ngIf=\"selectedRune\">\n  <div>{{selectedRune.expression}}</div>\n  <div>{{selectedRune.name}}</div>\n  <div>{{selectedRune.description}}</div>\n  <div>{{selectedRune?.parentGroup.name}}</div>\n  <div>{{selectedRune?.atomicGroup}}</div>\n  <div>{{selectedRune?.atomic}}</div>\n</div>\n"
+module.exports = "\n<div class=\"box-shadow box-shadow-1\" style=\"background-color: white; padding: 20px; margin-top: 10px\">\n  <h1>Runes</h1>\n\n  <div id=\"rune-tablets\" class=\"box-shadow box-shadow-2\" *ngIf=\"!(runeService.selectedRune$ | async)\">\n    <div *ngFor=\"let runeSet of runeSets\" class=\"rune-space\">\n      <mmr-tablet-button [rune]=\"runeSet.parent\"></mmr-tablet-button>\n\n      <div style=\"display: flex; flex-direction: column; align-items: center\">\n        <mmr-tablet-button *ngFor=\"let rune of runeSet.children\" [rune]=\"rune\" [isGlyph]=\"true\"></mmr-tablet-button>\n      </div>\n    </div>\n  </div>\n\n  <div *ngIf=\"runeService.selectedRune$ | async\" class=\"box-shadow box-shadow-2\" style=\"padding: 10px\">\n    <mmr-rune-wall></mmr-rune-wall>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/rune-wall/rune-wall.component.html":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/rune-wall/rune-wall.component.html ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<div style=\"display: flex\">\n  <div class=\"rune-space side-nav\">\n    <mmr-tablet-button *ngFor=\"let runeSet of runeService.runeSets\" [rune]=\"runeSet.parent\"></mmr-tablet-button>\n  </div>\n\n  <div style=\"width: 100%\">\n    <div style=\"display: flex; flex-direction: column; align-items: center; width: 86%\">\n      <div id=\"glyph-container\" class=\"box-shadow box-inner-shadow\">\n        <mmr-tablet-button *ngFor=\"let rune of (runeService.selectedRuneSet$ | async)?.children\"\n                           [rune]=\"rune\" [isGlyph]=\"true\"></mmr-tablet-button>\n      </div>\n    </div>\n\n    <div style=\"padding: 100px\" class=\"literata\">\n      <div *ngFor=\"let rune of [runeService.selectedRune$ | async]\">\n        <h1 *ngIf=\"rune.atomicGroup\">{{rune.atomicGroup}}</h1>\n        <div>\n          {{rune.expression}} {{rune.name}}\n        </div>\n        <div><a [href]=\"rune.docLink\" target=\"_blank\">Documentation</a></div>\n        <div>{{rune.description}}</div>\n        <div [innerHTML]=\"rune.overview\"></div>\n      </div>\n    </div>\n  </div>\n</div>\n"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/components/sandbox/sandbox.component.html":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/components/sandbox/sandbox.component.html ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n<svg width=\"100%\" height=\"500px\">\n  <rect id=\"my-square\" width=\"50\" height=\"50\" x=\"50\" y=\"50\" fill=\"orange\"></rect>\n\n  <animate xlink:href=\"#my-square\" attributeName=\"x\" from=\"50\" to=\"450\" dur=\"1s\" begin=\"click\" fill=\"freeze\"></animate>\n</svg>\n\n<!-- https://css-tricks.com/guide-svg-animations-smil/-->\n<svg viewBox=\"0 0 160 160\" width=\"160\" height=\"160\" style=\"background-color: #FC0;\">\n  <circle cx=\"80\" cy=\"80\" r=\"50\" />\n  <g transform=\" matrix(0.866, -0.5, 0.25, 0.433, 80, 80)\">\n    <path d=\"M 0,70 A 65,70 0 0,0 65,0 5,5 0 0,1 75,0 75,70 0 0,1 0,70Z\" fill=\"#FFF\">\n      <animateTransform attributeName=\"transform\" type=\"rotate\" from=\"360 0 0\" to=\"0 0 0\" dur=\"1s\" repeatCount=\"indefinite\" />\n    </path>\n  </g>\n  <path d=\"M 50,0 A 50,50 0 0,0 -50,0Z\" transform=\"matrix(0.866, -0.5, 0.5, 0.866, 80, 80)\" />\n</svg>\n"
 
 /***/ }),
 
@@ -116,6 +138,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _components_rune_scape_rune_scape_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/rune-scape/rune-scape.component */ "./src/app/components/rune-scape/rune-scape.component.ts");
 /* harmony import */ var _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/platform-browser/animations */ "./node_modules/@angular/platform-browser/fesm5/animations.js");
+/* harmony import */ var _components_single_tablet_button_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/single/tablet-button.component */ "./src/app/components/single/tablet-button.component.ts");
+/* harmony import */ var _components_sandbox_sandbox_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/sandbox/sandbox.component */ "./src/app/components/sandbox/sandbox.component.ts");
+/* harmony import */ var _components_rune_wall_rune_wall_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/rune-wall/rune-wall.component */ "./src/app/components/rune-wall/rune-wall.component.ts");
+
+
+
 
 
 
@@ -129,7 +157,11 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
-                _components_rune_scape_rune_scape_component__WEBPACK_IMPORTED_MODULE_4__["RuneScapeComponent"]
+                _components_rune_scape_rune_scape_component__WEBPACK_IMPORTED_MODULE_4__["RuneScapeComponent"],
+                _components_single_tablet_button_component__WEBPACK_IMPORTED_MODULE_6__["TabletButtonComponent"],
+                _components_single_tablet_button_component__WEBPACK_IMPORTED_MODULE_6__["TabletButtonComponent"],
+                _components_sandbox_sandbox_component__WEBPACK_IMPORTED_MODULE_7__["SandboxComponent"],
+                _components_rune_wall_rune_wall_component__WEBPACK_IMPORTED_MODULE_8__["RuneWallComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -153,7 +185,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n.glyph-tablet, .rune-tablet {\n  font-family: \"Mountains of Christmas\", cursive;\n  border-radius: 2px; /*30px*/\n  font-weight: bold;\n  margin: 0 30px 30px 0;\n}\n\n.glyph-tablet {\n  width: 40px;\n  height: 40px;\n  font-size: 14pt;\n}\n\n.rune-tablet {\n  width: 70px;\n  height: 70px;\n  font-size: 24pt;\n  border-radius: 2px;\n}\n\n.box-shadow {\n  transition: all 0.3s cubic-bezier(.25,.8,.25,1);\n}\n\n.box-shadow-1 {\n  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);\n}\n\n.box-shadow-2 {\n  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);\n}\n\n.box-shadow-3 {\n  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\n}\n\n.box-shadow-4 {\n  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n\n.box-shadow-5 {\n  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);\n}\n\n/*.rune-tablet:hover {*/\n\n/*  color: whitesmoke !important;*/\n\n/*  box-shadow: 0 0 20px 1px gray;*/\n\n/*}*/\n\n/*.rune-space:nth-child(-n+3) .rune-tablet {*/\n\n/*  border-color: #b89b47;*/\n\n/*  color: #b89b47;*/\n\n/*}*/\n\n/*.rune-space:nth-child(-n+3) .rune-tablet:hover {*/\n\n/*  background-color: #b89b47;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+4):nth-child(-n+6) .rune-tablet {*/\n\n/*  border-color: #47b862;*/\n\n/*  color: #47b862;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+4):nth-child(-n+6) .rune-tablet:hover {*/\n\n/*  background-color: #47b862;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+7):nth-child(-n+9) .rune-tablet {*/\n\n/*  border-color: #4764b8;*/\n\n/*  color: #4764b8;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+7):nth-child(-n+9) .rune-tablet:hover {*/\n\n/*  background-color: #4764b8;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+10) .rune-tablet {*/\n\n/*  border-color: #b8479d;*/\n\n/*  color: #b8479d;*/\n\n/*}*/\n\n/*.rune-space:nth-child(n+10) .rune-tablet:hover {*/\n\n/*  background-color: #b8479d;*/\n\n/*}*/\n\n#rune-tablets {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  padding-top: 20px;\n\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ydW5lLXNjYXBlL3J1bmUtc2NhcGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7RUFDRSw4Q0FBOEM7RUFDOUMsa0JBQWtCLEVBQUUsT0FBTztFQUMzQixpQkFBaUI7RUFDakIscUJBQXFCO0FBQ3ZCOztBQUVBO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixlQUFlO0FBQ2pCOztBQUVBO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixlQUFlO0VBQ2Ysa0JBQWtCO0FBQ3BCOztBQUVBO0VBQ0UsK0NBQStDO0FBQ2pEOztBQUVBO0VBQ0Usa0VBQWtFO0FBQ3BFOztBQUVBO0VBQ0Usa0VBQWtFO0FBQ3BFOztBQUVBO0VBQ0Usb0VBQW9FO0FBQ3RFOztBQUVBO0VBQ0Usc0VBQXNFO0FBQ3hFOztBQUVBO0VBQ0Usc0VBQXNFO0FBQ3hFOztBQUVBLHVCQUF1Qjs7QUFDdkIsa0NBQWtDOztBQUNsQyxtQ0FBbUM7O0FBQ25DLElBQUk7O0FBRUosNkNBQTZDOztBQUM3QywyQkFBMkI7O0FBQzNCLG9CQUFvQjs7QUFDcEIsSUFBSTs7QUFFSixtREFBbUQ7O0FBQ25ELCtCQUErQjs7QUFDL0IsSUFBSTs7QUFFSiw0REFBNEQ7O0FBQzVELDJCQUEyQjs7QUFDM0Isb0JBQW9COztBQUNwQixJQUFJOztBQUVKLGtFQUFrRTs7QUFDbEUsK0JBQStCOztBQUMvQixJQUFJOztBQUVKLDREQUE0RDs7QUFDNUQsMkJBQTJCOztBQUMzQixvQkFBb0I7O0FBQ3BCLElBQUk7O0FBRUosa0VBQWtFOztBQUNsRSwrQkFBK0I7O0FBQy9CLElBQUk7O0FBRUosNkNBQTZDOztBQUM3QywyQkFBMkI7O0FBQzNCLG9CQUFvQjs7QUFDcEIsSUFBSTs7QUFFSixtREFBbUQ7O0FBQ25ELCtCQUErQjs7QUFDL0IsSUFBSTs7QUFFSjtFQUNFLGFBQWE7RUFDYixlQUFlO0VBQ2YsdUJBQXVCO0VBQ3ZCLGlCQUFpQjs7QUFFbkIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3J1bmUtc2NhcGUvcnVuZS1zY2FwZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4uZ2x5cGgtdGFibGV0LCAucnVuZS10YWJsZXQge1xuICBmb250LWZhbWlseTogXCJNb3VudGFpbnMgb2YgQ2hyaXN0bWFzXCIsIGN1cnNpdmU7XG4gIGJvcmRlci1yYWRpdXM6IDJweDsgLyozMHB4Ki9cbiAgZm9udC13ZWlnaHQ6IGJvbGQ7XG4gIG1hcmdpbjogMCAzMHB4IDMwcHggMDtcbn1cblxuLmdseXBoLXRhYmxldCB7XG4gIHdpZHRoOiA0MHB4O1xuICBoZWlnaHQ6IDQwcHg7XG4gIGZvbnQtc2l6ZTogMTRwdDtcbn1cblxuLnJ1bmUtdGFibGV0IHtcbiAgd2lkdGg6IDcwcHg7XG4gIGhlaWdodDogNzBweDtcbiAgZm9udC1zaXplOiAyNHB0O1xuICBib3JkZXItcmFkaXVzOiAycHg7XG59XG5cbi5ib3gtc2hhZG93IHtcbiAgdHJhbnNpdGlvbjogYWxsIDAuM3MgY3ViaWMtYmV6aWVyKC4yNSwuOCwuMjUsMSk7XG59XG5cbi5ib3gtc2hhZG93LTEge1xuICBib3gtc2hhZG93OiAwIDFweCAzcHggcmdiYSgwLDAsMCwwLjEyKSwgMCAxcHggMnB4IHJnYmEoMCwwLDAsMC4yNCk7XG59XG5cbi5ib3gtc2hhZG93LTIge1xuICBib3gtc2hhZG93OiAwIDNweCA2cHggcmdiYSgwLDAsMCwwLjE2KSwgMCAzcHggNnB4IHJnYmEoMCwwLDAsMC4yMyk7XG59XG5cbi5ib3gtc2hhZG93LTMge1xuICBib3gtc2hhZG93OiAwIDEwcHggMjBweCByZ2JhKDAsMCwwLDAuMTkpLCAwIDZweCA2cHggcmdiYSgwLDAsMCwwLjIzKTtcbn1cblxuLmJveC1zaGFkb3ctNCB7XG4gIGJveC1zaGFkb3c6IDAgMTRweCAyOHB4IHJnYmEoMCwwLDAsMC4yNSksIDAgMTBweCAxMHB4IHJnYmEoMCwwLDAsMC4yMik7XG59XG5cbi5ib3gtc2hhZG93LTUge1xuICBib3gtc2hhZG93OiAwIDE5cHggMzhweCByZ2JhKDAsMCwwLDAuMzApLCAwIDE1cHggMTJweCByZ2JhKDAsMCwwLDAuMjIpO1xufVxuXG4vKi5ydW5lLXRhYmxldDpob3ZlciB7Ki9cbi8qICBjb2xvcjogd2hpdGVzbW9rZSAhaW1wb3J0YW50OyovXG4vKiAgYm94LXNoYWRvdzogMCAwIDIwcHggMXB4IGdyYXk7Ki9cbi8qfSovXG5cbi8qLnJ1bmUtc3BhY2U6bnRoLWNoaWxkKC1uKzMpIC5ydW5lLXRhYmxldCB7Ki9cbi8qICBib3JkZXItY29sb3I6ICNiODliNDc7Ki9cbi8qICBjb2xvcjogI2I4OWI0NzsqL1xuLyp9Ki9cblxuLyoucnVuZS1zcGFjZTpudGgtY2hpbGQoLW4rMykgLnJ1bmUtdGFibGV0OmhvdmVyIHsqL1xuLyogIGJhY2tncm91bmQtY29sb3I6ICNiODliNDc7Ki9cbi8qfSovXG5cbi8qLnJ1bmUtc3BhY2U6bnRoLWNoaWxkKG4rNCk6bnRoLWNoaWxkKC1uKzYpIC5ydW5lLXRhYmxldCB7Ki9cbi8qICBib3JkZXItY29sb3I6ICM0N2I4NjI7Ki9cbi8qICBjb2xvcjogIzQ3Yjg2MjsqL1xuLyp9Ki9cblxuLyoucnVuZS1zcGFjZTpudGgtY2hpbGQobis0KTpudGgtY2hpbGQoLW4rNikgLnJ1bmUtdGFibGV0OmhvdmVyIHsqL1xuLyogIGJhY2tncm91bmQtY29sb3I6ICM0N2I4NjI7Ki9cbi8qfSovXG5cbi8qLnJ1bmUtc3BhY2U6bnRoLWNoaWxkKG4rNyk6bnRoLWNoaWxkKC1uKzkpIC5ydW5lLXRhYmxldCB7Ki9cbi8qICBib3JkZXItY29sb3I6ICM0NzY0Yjg7Ki9cbi8qICBjb2xvcjogIzQ3NjRiODsqL1xuLyp9Ki9cblxuLyoucnVuZS1zcGFjZTpudGgtY2hpbGQobis3KTpudGgtY2hpbGQoLW4rOSkgLnJ1bmUtdGFibGV0OmhvdmVyIHsqL1xuLyogIGJhY2tncm91bmQtY29sb3I6ICM0NzY0Yjg7Ki9cbi8qfSovXG5cbi8qLnJ1bmUtc3BhY2U6bnRoLWNoaWxkKG4rMTApIC5ydW5lLXRhYmxldCB7Ki9cbi8qICBib3JkZXItY29sb3I6ICNiODQ3OWQ7Ki9cbi8qICBjb2xvcjogI2I4NDc5ZDsqL1xuLyp9Ki9cblxuLyoucnVuZS1zcGFjZTpudGgtY2hpbGQobisxMCkgLnJ1bmUtdGFibGV0OmhvdmVyIHsqL1xuLyogIGJhY2tncm91bmQtY29sb3I6ICNiODQ3OWQ7Ki9cbi8qfSovXG5cbiNydW5lLXRhYmxldHMge1xuICBkaXNwbGF5OiBmbGV4O1xuICBmbGV4LXdyYXA6IHdyYXA7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBwYWRkaW5nLXRvcDogMjBweDtcblxufVxuIl19 */"
+module.exports = "\n.box-shadow {\n  transition: all 0.3s cubic-bezier(.25,.8,.25,1);\n}\n\n.box-shadow-1 {\n  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);\n}\n\n.box-shadow-2 {\n  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);\n}\n\n.box-shadow-3 {\n  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);\n}\n\n.box-shadow-4 {\n  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);\n}\n\n.box-shadow-5 {\n  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);\n}\n\n#rune-tablets {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n  padding-top: 20px;\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ydW5lLXNjYXBlL3J1bmUtc2NhcGUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQ0E7RUFDRSwrQ0FBK0M7QUFDakQ7O0FBRUE7RUFDRSxrRUFBa0U7QUFDcEU7O0FBRUE7RUFDRSxrRUFBa0U7QUFDcEU7O0FBRUE7RUFDRSxvRUFBb0U7QUFDdEU7O0FBRUE7RUFDRSxzRUFBc0U7QUFDeEU7O0FBRUE7RUFDRSxzRUFBc0U7QUFDeEU7O0FBRUE7RUFDRSxhQUFhO0VBQ2IsZUFBZTtFQUNmLHVCQUF1QjtFQUN2QixpQkFBaUI7QUFDbkIiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL3J1bmUtc2NhcGUvcnVuZS1zY2FwZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4uYm94LXNoYWRvdyB7XG4gIHRyYW5zaXRpb246IGFsbCAwLjNzIGN1YmljLWJlemllciguMjUsLjgsLjI1LDEpO1xufVxuXG4uYm94LXNoYWRvdy0xIHtcbiAgYm94LXNoYWRvdzogMCAxcHggM3B4IHJnYmEoMCwwLDAsMC4xMiksIDAgMXB4IDJweCByZ2JhKDAsMCwwLDAuMjQpO1xufVxuXG4uYm94LXNoYWRvdy0yIHtcbiAgYm94LXNoYWRvdzogMCAzcHggNnB4IHJnYmEoMCwwLDAsMC4xNiksIDAgM3B4IDZweCByZ2JhKDAsMCwwLDAuMjMpO1xufVxuXG4uYm94LXNoYWRvdy0zIHtcbiAgYm94LXNoYWRvdzogMCAxMHB4IDIwcHggcmdiYSgwLDAsMCwwLjE5KSwgMCA2cHggNnB4IHJnYmEoMCwwLDAsMC4yMyk7XG59XG5cbi5ib3gtc2hhZG93LTQge1xuICBib3gtc2hhZG93OiAwIDE0cHggMjhweCByZ2JhKDAsMCwwLDAuMjUpLCAwIDEwcHggMTBweCByZ2JhKDAsMCwwLDAuMjIpO1xufVxuXG4uYm94LXNoYWRvdy01IHtcbiAgYm94LXNoYWRvdzogMCAxOXB4IDM4cHggcmdiYSgwLDAsMCwwLjMwKSwgMCAxNXB4IDEycHggcmdiYSgwLDAsMCwwLjIyKTtcbn1cblxuI3J1bmUtdGFibGV0cyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtd3JhcDogd3JhcDtcbiAganVzdGlmeS1jb250ZW50OiBjZW50ZXI7XG4gIHBhZGRpbmctdG9wOiAyMHB4O1xufVxuIl19 */"
 
 /***/ }),
 
@@ -170,83 +202,195 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _domain_rune__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../domain/rune */ "./src/app/domain/rune.ts");
-/* harmony import */ var _angular_animations__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/animations */ "./node_modules/@angular/animations/fesm5/animations.js");
+/* harmony import */ var _services_rune_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/rune.service */ "./src/app/services/rune.service.ts");
 
 
 
 
 var RuneScapeComponent = /** @class */ (function () {
-    function RuneScapeComponent() {
+    function RuneScapeComponent(runeService) {
+        this.runeService = runeService;
         this.primeRunes = _domain_rune__WEBPACK_IMPORTED_MODULE_2__["PRIME_RUNES"];
         this.runeSets = _domain_rune__WEBPACK_IMPORTED_MODULE_2__["RUNE_SETS"];
-        this.selectedRune = null;
-        this.hoveringOver = 0;
     }
     RuneScapeComponent.prototype.ngOnInit = function () {
     };
-    RuneScapeComponent.prototype.changeRune = function (rune) {
-        this.selectedRune = this.selectedRune === rune ? null : rune;
-    };
+    RuneScapeComponent.ctorParameters = function () { return [
+        { type: _services_rune_service__WEBPACK_IMPORTED_MODULE_3__["RuneService"] }
+    ]; };
     RuneScapeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'mmr-rune-scape',
             template: __webpack_require__(/*! raw-loader!./rune-scape.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/rune-scape/rune-scape.component.html"),
-            animations: [
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('enteredExited', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('entered', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        height: '70px',
-                        width: '70px',
-                        'font-size': '24pt'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('exited', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        height: '33px',
-                        width: '33px',
-                        'font-size': '14pt'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('exited => entered', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('100ms')
-                    ]),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('entered => exited', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('50ms')
-                    ])
-                ]),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('upDown', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('down', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        'box-shadow': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-                        transition: 'all 0.3s cubic-bezier(.25,.8.25,1)'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('up', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        'box-shadow': '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
-                        transition: 'all 0.3s cubic-bezier(.25,.8.25,1)'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('up => down', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('100ms')
-                    ]),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('down => up', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('50ms')
-                    ])
-                ]),
-                Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["trigger"])('upDownSmall', [
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('down', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        'box-shadow': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-                        transition: 'all 0.3s cubic-bezier(.25,.8.25,1)'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["state"])('up', Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["style"])({
-                        'box-shadow': '0 14px 16px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
-                        transition: 'all 0.3s cubic-bezier(.25,.8.25,1)'
-                    })),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('up => down', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('90ms')
-                    ]),
-                    Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["transition"])('down => up', [
-                        Object(_angular_animations__WEBPACK_IMPORTED_MODULE_3__["animate"])('40ms')
-                    ])
-                ])
-            ],
+            animations: [],
             styles: [__webpack_require__(/*! ./rune-scape.component.css */ "./src/app/components/rune-scape/rune-scape.component.css")]
         })
     ], RuneScapeComponent);
     return RuneScapeComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/rune-wall/rune-wall.component.css":
+/*!**************************************************************!*\
+  !*** ./src/app/components/rune-wall/rune-wall.component.css ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n#glyph-container {\n  border: 1px solid rgba(0,0,0,.2);\n  border-radius: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 60px;\n}\n\n.side-nav {\n  display: flex;\n  flex-direction: column;\n  border-right: 1px solid rgba(0,0,0,.1);\n}\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY29tcG9uZW50cy9ydW5lLXdhbGwvcnVuZS13YWxsLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IjtBQUNBO0VBQ0UsZ0NBQWdDO0VBQ2hDLG1CQUFtQjtFQUNuQixhQUFhO0VBQ2IsbUJBQW1CO0VBQ25CLHVCQUF1QjtFQUN2QixZQUFZO0FBQ2Q7O0FBRUE7RUFDRSxhQUFhO0VBQ2Isc0JBQXNCO0VBQ3RCLHNDQUFzQztBQUN4QyIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvcnVuZS13YWxsL3J1bmUtd2FsbC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiXG4jZ2x5cGgtY29udGFpbmVyIHtcbiAgYm9yZGVyOiAxcHggc29saWQgcmdiYSgwLDAsMCwuMik7XG4gIGJvcmRlci1yYWRpdXM6IDQwcHg7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG4gIGp1c3RpZnktY29udGVudDogY2VudGVyO1xuICBoZWlnaHQ6IDYwcHg7XG59XG5cbi5zaWRlLW5hdiB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47XG4gIGJvcmRlci1yaWdodDogMXB4IHNvbGlkIHJnYmEoMCwwLDAsLjEpO1xufVxuIl19 */"
+
+/***/ }),
+
+/***/ "./src/app/components/rune-wall/rune-wall.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/components/rune-wall/rune-wall.component.ts ***!
+  \*************************************************************/
+/*! exports provided: RuneWallComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RuneWallComponent", function() { return RuneWallComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_rune_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/rune.service */ "./src/app/services/rune.service.ts");
+
+
+
+var RuneWallComponent = /** @class */ (function () {
+    function RuneWallComponent(runeService) {
+        this.runeService = runeService;
+    }
+    RuneWallComponent.prototype.ngOnInit = function () {
+    };
+    RuneWallComponent.ctorParameters = function () { return [
+        { type: _services_rune_service__WEBPACK_IMPORTED_MODULE_2__["RuneService"] }
+    ]; };
+    RuneWallComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'mmr-rune-wall',
+            template: __webpack_require__(/*! raw-loader!./rune-wall.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/rune-wall/rune-wall.component.html"),
+            styles: [__webpack_require__(/*! ./rune-wall.component.css */ "./src/app/components/rune-wall/rune-wall.component.css")]
+        })
+    ], RuneWallComponent);
+    return RuneWallComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/sandbox/sandbox.component.css":
+/*!**********************************************************!*\
+  !*** ./src/app/components/sandbox/sandbox.component.css ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NvbXBvbmVudHMvc2FuZGJveC9zYW5kYm94LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/components/sandbox/sandbox.component.ts":
+/*!*********************************************************!*\
+  !*** ./src/app/components/sandbox/sandbox.component.ts ***!
+  \*********************************************************/
+/*! exports provided: SandboxComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SandboxComponent", function() { return SandboxComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var SandboxComponent = /** @class */ (function () {
+    function SandboxComponent() {
+    }
+    SandboxComponent.prototype.ngOnInit = function () {
+    };
+    SandboxComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'mmr-sandbox',
+            template: __webpack_require__(/*! raw-loader!./sandbox.component.html */ "./node_modules/raw-loader/index.js!./src/app/components/sandbox/sandbox.component.html"),
+            styles: [__webpack_require__(/*! ./sandbox.component.css */ "./src/app/components/sandbox/sandbox.component.css")]
+        })
+    ], SandboxComponent);
+    return SandboxComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/components/single/tablet-button.component.ts":
+/*!**************************************************************!*\
+  !*** ./src/app/components/single/tablet-button.component.ts ***!
+  \**************************************************************/
+/*! exports provided: TabletButtonComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TabletButtonComponent", function() { return TabletButtonComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_rune_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/rune.service */ "./src/app/services/rune.service.ts");
+
+
+
+var TabletButtonComponent = /** @class */ (function () {
+    function TabletButtonComponent(runeService) {
+        this.runeService = runeService;
+        this.isGlyph = false;
+        this.rounded = true;
+        this.classes = this.standardClass();
+        this.clicked = false;
+        this.borderRadius = this.rounded ? 300 : 4;
+    }
+    TabletButtonComponent.prototype.ngOnInit = function () {
+        this.provideClasses();
+    };
+    TabletButtonComponent.prototype.selectRune = function () {
+        this.runeService.selectRune(this.rune);
+    };
+    TabletButtonComponent.prototype.standardClass = function () {
+        return this.isGlyph ? 'glyph-tablet' : 'rune-tablet';
+    };
+    TabletButtonComponent.prototype.provideClasses = function () {
+        var _this = this;
+        this.runeService.selectedRuneSet$.subscribe(function (rune) {
+            _this.classes = _this.standardClass();
+            if (rune) {
+                var currentRune = _this.runeService.selectedRune$.getValue();
+                _this.classes += currentRune === _this.rune || currentRune.parentGroup === _this.rune ? ' selected' : '';
+            }
+        });
+    };
+    TabletButtonComponent.ctorParameters = function () { return [
+        { type: _services_rune_service__WEBPACK_IMPORTED_MODULE_2__["RuneService"] }
+    ]; };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], TabletButtonComponent.prototype, "rune", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], TabletButtonComponent.prototype, "isGlyph", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+    ], TabletButtonComponent.prototype, "rounded", void 0);
+    TabletButtonComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'mmr-tablet-button',
+            template: "\n    <button class=\"tablet\"\n            [ngClass]=\"classes\"\n            [style.border-radius.px]=\"borderRadius\"\n            (click)=\"selectRune()\">{{rune?.expression}}</button>\n  ",
+            styles: ["\n      .tablet {\n        font-family: \"Mountains of Christmas\", cursive;\n        font-weight: bold;\n        margin: 15px 15px;\n        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);\n        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);\n      }\n\n      .tablet:hover {\n        box-shadow: 0 14px 16px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);\n      }\n\n      .tablet:active {\n        box-shadow: 0 6px 7px rgba(0, 0, 0, 0.20), 0 5px 5px rgba(0, 0, 0, .024);\n        border: 1px solid rgba(0, 0, 0, 0.2)\n      }\n\n      .glyph-tablet {\n        width: 40px;\n        height: 40px;\n        font-size: 14pt;\n      }\n\n      .rune-tablet {\n        width: 70px;\n        height: 70px;\n        font-size: 24pt;\n      }\n\n      .selected {\n        background-color: #a1d1ff;\n        border-color: #6592bf;\n      }\n    "]
+        })
+    ], TabletButtonComponent);
+    return TabletButtonComponent;
 }());
 
 
@@ -407,7 +551,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ZAP_SET", function() { return ZAP_SET; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RUNE_SETS", function() { return RUNE_SETS; });
 var Rune = /** @class */ (function () {
-    function Rune(expression, name, description, parentGroup, atomicGroup, atomic) {
+    function Rune(expression, name, description, parentGroup, atomicGroup, atomic, overview) {
         if (atomic === void 0) { atomic = false; }
         this.expression = expression;
         this.name = name;
@@ -415,9 +559,10 @@ var Rune = /** @class */ (function () {
         this.parentGroup = parentGroup;
         this.atomicGroup = atomicGroup;
         this.atomic = atomic;
+        this.overview = overview;
         this.docLink = 'https://urbit.org/docs/reference/hoon-expressions/rune/';
         if (this.name !== 'not' && !atomic) {
-            this.docLink += this.parentGroup.name + "/" + this.name;
+            this.docLink += this.parentGroup.name + "#" + this.name;
         }
     }
     Rune.createSpace = function () { return new Rune('', 'not', 'Creates existence'); };
@@ -433,7 +578,8 @@ var Rune = /** @class */ (function () {
         { type: String },
         { type: Rune },
         { type: String },
-        { type: Boolean }
+        { type: Boolean },
+        { type: String }
     ]; };
     return Rune;
 }());
@@ -449,7 +595,7 @@ var KET = new Rune('^', 'ket', 'Adjusts types without violating type constraints
 var LUS = new Rune('+', 'lus', 'Defines arms in a core', NOT, 'Arms', true);
 var MIC = new Rune(';', 'mic', 'Handles useful macros', NOT, 'Make', true);
 var SIG = new Rune('~', 'sig', 'Passes non-semantic info to the interpreter', NOT, 'Hints', true);
-var TIS = new Rune('=', 'tis', 'Modifies the subject', NOT, 'Subject Modification', true);
+var TIS = new Rune('=', 'tis', 'Modifies the subject', NOT, 'Subject Modification', true, "\n      To create a variable in Hoon, you bind a name to a value and combine it with the subject in a cell. \n      The name/value pair resides in the head while the subject resides in the tail.\n      \n      <ul>Example\n        <li><span class=\"glossary\">name</span>: <span class=\"code\">a</span></li>\n        <li>value: <span class=\"code\">12</span></li>\n        <li><span class=\"glossary\">subject</span>: <span class=\"code\">p</span></li>\n        <li>form: <span class=\"code\">[a=12 p]</span></li>\n        <li><span class=\"code\">[a=12 p] -> [b=2 a]</span></li>\n      </ul>\n    ");
 var WUT = new Rune('?', 'wut', 'Processes branching on conditionals', NOT, 'Conditionals', true);
 var ZAP = new Rune('!', 'zap', 'Handles wildcard expressions', NOT, 'Wild', true);
 var TEM = new Rune('--', '', 'Terminates expressions', NOT, 'Terminators', true);
@@ -649,6 +795,50 @@ var ZAP_SET = {
 var RUNE_SETS = [
     BAR_SET, BUC_SET, CEN_SET, COL_SET, DOT_SET, KET_SET, LUS_SET, MIC_SET, SIG_SET, TIS_SET, WUT_SET, ZAP_SET
 ];
+
+
+/***/ }),
+
+/***/ "./src/app/services/rune.service.ts":
+/*!******************************************!*\
+  !*** ./src/app/services/rune.service.ts ***!
+  \******************************************/
+/*! exports provided: RuneService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RuneService", function() { return RuneService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _domain_rune__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../domain/rune */ "./src/app/domain/rune.ts");
+
+
+
+
+var RuneService = /** @class */ (function () {
+    function RuneService() {
+        this.runeSets = _domain_rune__WEBPACK_IMPORTED_MODULE_3__["RUNE_SETS"];
+        this.hoveredRune$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        this.selectedRune$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        this.selectedRuneSet$ = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"](null);
+        // this.selectRune(TIS);
+    }
+    RuneService.prototype.selectRune = function (rune) {
+        var runeReplace = this.selectedRune$.getValue() === rune ? null : rune;
+        this.selectedRune$.next(runeReplace);
+        console.log(this.runeSets.find(function (set) { return set.parent === rune.parentGroup || set.parent === rune; }));
+        this.selectedRuneSet$.next(this.runeSets.find(function (set) { return set.parent === rune.parentGroup || set.parent === rune; }));
+    };
+    RuneService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        })
+    ], RuneService);
+    return RuneService;
+}());
+
 
 
 /***/ }),
