@@ -2,7 +2,7 @@
 <div class="box-shadow box-shadow-1" style="background-color: white; padding: 20px; margin-top: 10px">
   <h1>Runes</h1>
 
-  <div id="rune-tablets" class="box-shadow box-shadow-2">
+  <div id="rune-tablets" class="box-shadow box-shadow-2" *ngIf="!(runeService.selectedRune$ | async)">
     <div *ngFor="let runeSet of runeSets" class="rune-space">
       <mmr-tablet-button [rune]="runeSet.parent"></mmr-tablet-button>
 
@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div class="box-shadow box-shadow-2" style="padding: 30px">
+  <div *ngIf="runeService.selectedRune$ | async" class="box-shadow box-shadow-2" style="padding: 10px">
     <mmr-rune-wall></mmr-rune-wall>
   </div>
 </div>

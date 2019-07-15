@@ -1,5 +1,15 @@
 
+#glyph-container {
+  border: 1px solid rgba(0,0,0,.2);
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
 .side-nav {
   display: flex;
   flex-direction: column;
+  border-right: 1px solid rgba(0,0,0,.1);
 }

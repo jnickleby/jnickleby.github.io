@@ -4,6 +4,10 @@ body {
   background: #e2e1e0;
 }
 
+button {
+  outline: none;
+}
+
 .literata {
   font-family: 'Literata', serif;
   font-size: 20pt;
@@ -54,3 +58,33 @@ body {
 .pink-bg { background-color: #b8479d; }
 .yellow-bg { background-color: #b89b47; }
 .green-bg { background-color: #47b862; }
+
+.box-shadow {
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.box-shadow-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.box-shadow-2 {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.box-shadow-3 {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.box-shadow-4 {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.box-shadow-5 {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+.box-inner-shadow {
+  -webkit-box-shadow: inset 2px 21px 62px -60px rgba(0,0,0,0.88);
+  -moz-box-shadow: inset 2px 21px 62px -60px rgba(0,0,0,0.88);
+  box-shadow: inset 2px 21px 62px -60px rgba(0,0,0,0.88);
+}

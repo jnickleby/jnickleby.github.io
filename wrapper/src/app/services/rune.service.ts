@@ -24,6 +24,8 @@ export class RuneService {
   public selectRune(rune?: Rune) {
     const runeReplace = this.selectedRune$.getValue() === rune ? null : rune;
     this.selectedRune$.next(runeReplace);
-    this.selectedRuneSet$.next(this.runeSets.find(set => set.parent === rune.parentGroup));
+
+    console.log(this.runeSets.find(set => set.parent === rune.parentGroup || set.parent === rune));
+    this.selectedRuneSet$.next(this.runeSets.find(set => set.parent === rune.parentGroup || set.parent === rune));
   }
 }

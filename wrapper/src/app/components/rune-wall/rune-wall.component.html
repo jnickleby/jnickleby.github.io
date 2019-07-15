@@ -4,10 +4,21 @@
     <mmr-tablet-button *ngFor="let runeSet of runeService.runeSets" [rune]="runeSet.parent"></mmr-tablet-button>
   </div>
 
-  <div>
-    <div>
-      <mmr-tablet-button *ngFor="let rune of (runeService.selectedRuneSet$ | async)?.children"
-                         [rune]="rune" [isGlyph]="true"></mmr-tablet-button>
+  <div style="width: 100%">
+    <div style="display: flex; flex-direction: column; align-items: center; width: 86%">
+      <div id="glyph-container" class="box-shadow box-inner-shadow">
+        <mmr-tablet-button *ngFor="let rune of (runeService.selectedRuneSet$ | async)?.children"
+                           [rune]="rune" [isGlyph]="true"></mmr-tablet-button>
+      </div>
+    </div>
+
+    <div style="padding: 100px">
+      <div *ngFor="let rune of [runeService.selectedRune$ | async]">
+        <h1 *ngIf="rune.atomicGroup">{{rune.atomicGroup}}</h1>
+        <div>{{rune.expression}}</div>
+        <div>{{rune.name}}</div>
+        <div>{{rune.description}}</div>
+      </div>
     </div>
   </div>
 </div>
