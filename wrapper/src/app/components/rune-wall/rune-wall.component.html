@@ -12,12 +12,15 @@
       </div>
     </div>
 
-    <div style="padding: 100px">
+    <div style="padding: 100px" class="literata">
       <div *ngFor="let rune of [runeService.selectedRune$ | async]">
         <h1 *ngIf="rune.atomicGroup">{{rune.atomicGroup}}</h1>
-        <div>{{rune.expression}}</div>
-        <div>{{rune.name}}</div>
+        <div>
+          {{rune.expression}} {{rune.name}}
+        </div>
+        <div><a [href]="rune.docLink" target="_blank">Documentation</a></div>
         <div>{{rune.description}}</div>
+        <div [innerHTML]="rune.overview"></div>
       </div>
     </div>
   </div>

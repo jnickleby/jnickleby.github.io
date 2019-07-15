@@ -1,15 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {hoverTemplate} from '../../animations/hover.animation';
 import {RuneService} from '../../services/rune.service';
-import {Rune} from '../../domain/rune';
+import {NOT, Rune} from '../../domain/rune';
 import {activateTemplate} from '../../animations/active.animation';
 
 @Component({
   selector: 'mmr-tablet-button',
   template: `
     <button class="tablet"
-            [ngClass]="provideClasses()"
+            [ngClass]="classes"
             [style.border-radius.px]="borderRadius"
             (click)="selectRune()">{{rune?.expression}}</button>
   `,
@@ -51,10 +51,12 @@ import {activateTemplate} from '../../animations/active.animation';
     `
   ]
 })
-export class TabletButtonComponent {
+export class TabletButtonComponent implements OnInit {
   @Input() rune: Rune;
   @Input() isGlyph = false;
   @Input() rounded = true;
+
+  classes = this.standardClass();
 
   clicked = false;
 
@@ -62,17 +64,27 @@ export class TabletButtonComponent {
 
   constructor(public runeService: RuneService) {}
 
+  ngOnInit(): void {
+    this.provideClasses();
+  }
+
   selectRune() {
     this.runeService.selectRune(this.rune);
   }
 
+  standardClass() {
+    return this.isGlyph ? 'glyph-tablet' : 'rune-tablet';
+  }
+
   provideClasses() {
-    const currentRune = this.runeService.selectedRune$.getValue();
+    this.runeService.selectedRuneSet$.subscribe(rune => {
+      this.classes = this.standardClass();
 
-    let classes = currentRune === this.rune || currentRune.parentGroup === this.rune  ? 'selected ' : '';
+      if (rune) {
+        const currentRune = this.runeService.selectedRune$.getValue();
 
-    classes += this.isGlyph ? 'glyph-tablet' : 'rune-tablet';
-
-    return classes;
+        this.classes += currentRune === this.rune || currentRune.parentGroup === this.rune ? ' selected' : '';
+      }
+    });
   }
 }

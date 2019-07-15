@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
-import {Rune, RUNE_SETS, TISBAR} from '../domain/rune';
+import {Rune, RUNE_SETS, TIS, TISBAR} from '../domain/rune';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,7 @@ export class RuneService {
   selectedRuneSet$: BehaviorSubject<{parent: Rune, children: Rune[]}> = new BehaviorSubject(null);
 
   constructor() {
-    this.selectRune(TISBAR);
-  }
-
-  public changeHover(rune?: Rune) {
-    this.hoveredRune$.next(rune);
+    // this.selectRune(TIS);
   }
 
   public selectRune(rune?: Rune) {

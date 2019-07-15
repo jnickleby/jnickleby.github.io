@@ -1,3 +1,5 @@
+import {TextForm} from './text-form';
+
 export class Rune {
 
   constructor(
@@ -6,10 +8,11 @@ export class Rune {
     public description: string,
     public parentGroup?: Rune,
     public atomicGroup?: string,
-    public atomic: boolean = false
+    public atomic: boolean = false,
+    public overview?: string
   ) {
     if (this.name !== 'not' && !atomic) {
-      this.docLink += `${this.parentGroup.name}/${this.name}`;
+      this.docLink += `${this.parentGroup.name}#${this.name}`;
     }
   }
 
@@ -58,7 +61,20 @@ export const SIG = new Rune(
   '~', 'sig', 'Passes non-semantic info to the interpreter', NOT, 'Hints', true);
 
 export const TIS = new Rune(
-  '=', 'tis', 'Modifies the subject', NOT, 'Subject Modification', true);
+  '=', 'tis', 'Modifies the subject', NOT, 'Subject Modification', true,
+    `
+      To create a variable in Hoon, you bind a name to a value and combine it with the subject in a cell. 
+      The name/value pair resides in the head while the subject resides in the tail.
+      
+      <ul>Example
+        <li><span class="glossary">name</span>: <span class="code">a</span></li>
+        <li>value: <span class="code">12</span></li>
+        <li><span class="glossary">subject</span>: <span class="code">p</span></li>
+        <li>form: <span class="code">[a=12 p]</span></li>
+        <li><span class="code">[a=12 p] -> [b=2 a]</span></li>
+      </ul>
+    `
+  );
 
 export const WUT = new Rune(
   '?', 'wut', 'Processes branching on conditionals',  NOT, 'Conditionals', true);
